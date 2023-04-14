@@ -9,7 +9,6 @@ import App from './components/App';
 import Logic from './components/Logic';
 import Inputs from './components/Inputs';
 import Check from './components/Check';
-import Home from './components/Home';
 
 const router = createBrowserRouter([
   {
@@ -28,10 +27,6 @@ const router = createBrowserRouter([
     path: '/check',
     element: <Check />
   },
-  {
-    path: '/home',
-    element: <Home/>
-  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
