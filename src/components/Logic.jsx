@@ -1,7 +1,6 @@
 import React from 'react';
-import { useEffect,useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { F, E } from './Scales';
+import { useLocation } from 'react-router-dom';
+// import { F, E } from './Scales';
 
 
 
@@ -9,12 +8,12 @@ function Calculate() {
     // let hv = {};
     let hv = [];
 //Object not allowing to store same keys
-    // let moment= 0.0;
-    const [moment, setMoment] = useState(0.0);
-    // let angle;
-    const [angle, setAngle] = useState(0);
-    // let mean_hydrophobicity = 0.0;
-    const [meanH, setMeanH] = useState(0.0);
+    let moment= 0.0;
+    // const [moment, setMoment] = useState(0.0);
+    let angle;
+    // const [angle, setAngle] = useState(0);
+    let mean_hydrophobicity = 0.0;
+    // const [meanH, setMeanH] = useState(0.0);
 
     const location = useLocation();
     let sequence = location.state.sequence;
@@ -52,24 +51,28 @@ function Calculate() {
 
         }
 
-        // moment = Math.sqrt(Math.pow(sum_sin, 2) + Math.pow(sum_cos, 2)) / k.length;
-        let Mval = Math.sqrt(Math.pow(sum_sin, 2) + Math.pow(sum_cos, 2)) / k.length
-        Mval = Mval.toPrecision(3);
+        moment = Math.sqrt(Math.pow(sum_sin, 2) + Math.pow(sum_cos, 2)) / k.length;
+        moment = moment.toPrecision(3);
+        // let Mval = Math.sqrt(Math.pow(sum_sin, 2) + Math.pow(sum_cos, 2)) / k.length
+        // Mval = Mval.toPrecision(3);
 
-        return Mval;
+        // return Mval;
     }
     
     function DoMath() {
 
         switch (type) {
             case 'alpha':
-                setAngle(100);
+                angle = 100;
+                // setAngle(100);
                 break;
             case 'beta':
-                setAngle(180);
+                angle = 180;
+                // setAngle(180);
                 break;
             case '3-10':
-                setAngle(120);
+                angle = 120;
+                // setAngle(120);
                 break;
             default:
                 break;
@@ -79,32 +82,39 @@ function Calculate() {
         // const sum = Object.values(hv).reduce((a, b) => a + b, 0);
         const sum = hv.reduce((a, b) => a + b, 0);
         // console.log(sum);
-        // mean_hydrophobicity = sum / Object.keys(hv).length;
+        mean_hydrophobicity = sum / Object.keys(hv).length;
         // let Hval = sum / Object.keys(hv).length;
-        let Hval = sum / hv.length;
-        // mean_hydrophobicity = mean_hydrophobicity.toPrecision(3);
-        Hval = Hval.toPrecision(3);
-        let Mval = get_moment(hv, angle);
-
-        return [Mval, Hval];
+        // let Hval = sum / hv.length;
+        mean_hydrophobicity = mean_hydrophobicity.toPrecision(3);
+        // Hval = Hval.toPrecision(3);
+        // let Mval = get_moment(hv, angle);
+        get_moment(hv, angle);
+        // return [Mval, Hval];
     }
 
-    const [Mval, Hval] = DoMath();
-    console.log(Mval, Hval);
+    DoMath();
+    // const [Mval, Hval] = DoMath();
+    // console.log(Mval, Hval);
 
-    useEffect(() => {
-        setMoment(Mval);
-        setMeanH(Hval);
-    }, []);
+    // useEffect(() => {
+    //     setMoment(Mval);
+    //     setMeanH(Hval);
+    // }, []);
 
     return (
         <>
-            <div className="result">
-                <p>Entered Sequence is: {sequence}</p>
-                <p>Entered scale is: {scale}</p>
-                <p>Mean Hydrophobicity is: {meanH}</p>
-                <p>Hydrophobic Moment is: {moment}</p>
-            </div>
+            <main className='h-screen flex items-center justify-center'>
+                <div className='bg-white rounded-lg flex w-1/2'>
+                    <div className='flex-1 p-2'>
+                        <div className='mt-6 text-center'>
+                            <p className='block text-lg pb-2 font-mono'>Entered Sequence is: {sequence}</p>
+                            <p className='block text-lg pb-2 font-mono'>Entered scale is: {scale}</p>
+                            <p className='block text-lg pb-2 font-mono'>Mean Hydrophobicity is: {mean_hydrophobicity}</p>
+                            <p className='block text-lg pb-2 font-mono'>Hydrophobic Moment is: {moment}</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </>
     );
 }

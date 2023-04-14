@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { F, E } from './Scales';
 
@@ -14,8 +13,8 @@ function Check() {
     let scale = location.state.scale;
     let type = location.state.type;
     sequence = sequence.toUpperCase();
-    console.log(F)
-    if (scale == 'F') newObj = Object.assign({}, F);
+    // console.log(F)
+    if (scale === 'F') newObj = Object.assign({}, F);
     else newObj= Object.assign({}, E);
 
     const handleOnChange = (e, c) => {
@@ -28,7 +27,7 @@ function Check() {
 
     const handleOnClick = () => {
      
-        if (Object.keys(newObj).length == ( Object.keys(F).length+ nc.length)) {
+        if (Object.keys(newObj).length === ( Object.keys(F).length+ nc.length)) {
             navigate(
                 '/logic', {
                     replace: true,
@@ -73,15 +72,31 @@ function Check() {
 
     return (
         <>
-            {
-                nc.map((c, ind) => 
-                    <div key={ind}>
-                        <label id="char">Enter the value for the missing amino acid: {c}</label>
-                        <input type="number" onChange={(e) => { handleOnChange(e,c) }}/>
+            <main className='h-screen flex items-center justify-center'>
+                <div className='bg-white rounded-lg flex w-1/2'>
+                    <div className='flex-1'>
+                        {
+                            nc.map((c, ind) => 
+                                <div key={ind} className='pt-5 pl-5'>
+                                    <label id="char" className='text-lg font-mono'>Enter the value for the missing amino acid: {c} </label>
+                                    <input
+                                        className='h-8 border-2 border-gray-500 p-2 rounded-md outline-none focus:border-teal-500'
+                                        type="number"
+                                        onChange={(e) => { handleOnChange(e, c) }}
+                                    />
+                                </div>
+                            )
+                        }
+                        <div className=' pt-10 flex flex-col font-mono items-center'>
+                        {/* <input type="submit" value="submit" onClick={submitFunc} className='bg-black text-white'/> */}
+                            <button
+                                className='border-2 border-gray-500 p-2 rounded-md w-fit outline-none hover:bg-teal-400'
+                                onClick={handleOnClick}
+                            >Submit</button>
+                        </div>
                     </div>
-                )
-            }
-            <button style={{paddingTop: 10}} onClick={handleOnClick}>Submit</button>
+                </div>
+            </main>
         </>
     )
     
