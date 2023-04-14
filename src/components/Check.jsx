@@ -57,8 +57,6 @@ function Check() {
 
     useEffect(() => {
         if (nc.length === 0) {
-            
-            console.log("reached nc.length===0");
     
             try {
                 navigate(
@@ -76,6 +74,8 @@ function Check() {
                 console.error(error);
             }
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     return (
