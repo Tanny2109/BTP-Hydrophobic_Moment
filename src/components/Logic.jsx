@@ -22,7 +22,7 @@ function Calculate() {
     let values = location.state.values;
     let type = location.state.type;
 
-    function get_hydrophobicity(sequence, scale)
+    function get_hydrophobicity(sequence)
     {
         for (let s of sequence)
         {
@@ -40,7 +40,7 @@ function Calculate() {
     {
         let sum_sin = 0.0, sum_cos = 0.0;
         let k = sequence.split("");
-        console.log('k: ',k);
+        // console.log('k: ',k);
 
         for (let i = 0; i < k.length; i++) {
             let rad = ((i + 1) * angle * 3.14) / 180.0;
@@ -78,11 +78,12 @@ function Calculate() {
                 break;
         }
 
-        get_hydrophobicity(sequence, scale);
+        get_hydrophobicity(sequence);
         // const sum = Object.values(hv).reduce((a, b) => a + b, 0);
         const sum = hv.reduce((a, b) => a + b, 0);
-        // console.log(sum);
-        mean_hydrophobicity = sum / Object.keys(hv).length;
+        // console.log("hv: ",hv);
+        // console.log("sum: ", sum);
+        mean_hydrophobicity = sum / hv.length;
         // let Hval = sum / Object.keys(hv).length;
         // let Hval = sum / hv.length;
         mean_hydrophobicity = mean_hydrophobicity.toPrecision(3);

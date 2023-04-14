@@ -15,10 +15,14 @@ function Check() {
     let type = location.state.type;
     sequence = sequence.toUpperCase();
     // console.log(F)
-    console.log([sequence, scale, type]);
+    // console.log([sequence, scale, type]);
 
-    if (scale === 'F') newObj = Object.assign({}, F);
-    else newObj= Object.assign({}, E);
+    if (scale === "Fauchere-Pilska") {
+        newObj = Object.assign({}, F);
+    }
+    else {
+        newObj = Object.assign({}, E);
+    }
 
     const handleOnChange = (e, c) => {
         let val = e.target.value;
@@ -57,7 +61,7 @@ function Check() {
 
     useEffect(() => {
         if (nc.length === 0) {
-    
+
             try {
                 navigate(
                     '/logic', {
