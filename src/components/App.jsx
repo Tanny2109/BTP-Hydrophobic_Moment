@@ -24,7 +24,7 @@ function App() {
     // let type = document.getElementById('type').value;
     let type = formik.values.type;
 
-    console.log([sequence, scale, type]);
+    // console.log([sequence, scale, type]);
     
     if (sequence === "") {
       alert('Please enter the sequence');
@@ -108,7 +108,12 @@ function App() {
             {/*div for submit button */}
             <div className=' flex flex-col font-mono items-center'>
                 {/* <input type="submit" value="submit" onClick={submitFunc} className='bg-black text-white'/> */}
-                <button className='border-2 border-gray-500 p-2 rounded-md w-1/4 outline-none hover:bg-teal-400'>Submit</button>
+              <button
+                className='border-2 border-gray-500 p-2 rounded-md w-1/4 outline-none hover:bg-teal-400'
+                onSubmit={submitFunc}
+              >
+                Submit
+              </button>
             </div>
           </div>
           

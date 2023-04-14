@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { F, E } from './Scales';
 
-let nc = [];
 
-let newObj;
 function Check() {
     
+    let nc = [];
+    let newObj;
+
     const navigate = useNavigate();
     const location = useLocation();
     let sequence = location.state.sequence;
@@ -14,6 +15,8 @@ function Check() {
     let type = location.state.type;
     sequence = sequence.toUpperCase();
     // console.log(F)
+    console.log([sequence, scale, type]);
+
     if (scale === 'F') newObj = Object.assign({}, F);
     else newObj= Object.assign({}, E);
 
@@ -52,24 +55,29 @@ function Check() {
         }
     }
 
-    if (nc.length === 0) {
-        try {
-            navigate(
-                '/logic', {
-                    replace: true,
-                    state: {
-                        sequence: sequence,
-                        scale: scale,
-                        type: type,
-                        values: newObj,
+    useEffect(() => {
+        if (nc.length === 0) {
+            
+            console.log("reached nc.length===0");
+    
+            try {
+                navigate(
+                    '/logic', {
+                        replace: true,
+                        state: {
+                            sequence: sequence,
+                            scale: scale,
+                            type: type,
+                            values: newObj,
+                        }
                     }
-                }
-            )  
-        } catch (error) {
-            console.error(error);
+                )  
+            } catch (error) {
+                console.error(error);
+            }
         }
-    }
-
+    }, []);
+    
     return (
         <>
             <main className='h-screen flex items-center justify-center'>
