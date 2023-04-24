@@ -1,10 +1,16 @@
 // import logo from './logo.svg';
 // import './App.css';
+import './Popup.css';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useState } from 'react';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 function App() {
 
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
   const navigate = useNavigate();
   
   const formik = useFormik({
@@ -13,8 +19,21 @@ function App() {
         scale: "Fauchere-Pilska",
         type: "alpha",
       },
-    });
+  });
+  
+  const onChange = (e) => { 
+        
+    let latestChar = e.target.value[e.target.value.length - 1]
+    // console.log(latestChar);
+    if (latestChar && latestChar === latestChar.toLowerCase()) {
+        setOpen(true);
+    } else {
+        setOpen(false);
+    }
 
+    formik.handleChange(e);
+  }
+  
   const submitFunc = (e) => {
     e.preventDefault();
     // let sequence = document.getElementById('seq').value;
@@ -53,21 +72,42 @@ function App() {
 
           <div className='flex-1 p-20'>
             
-            <h1 className='text-2xl pb-2 text-center font-mono'>Hydrophobic Moment of an Amino Acid Chain</h1>   
+            <h1 className='text-2xl pb-2 text-center font-mono'>Hydrophobic Moment of a Polypeptide Chain</h1>   
             
             <div className='mt-6'>
 
               {/*div for sequence */}
               <div className='pb-4'>
                 <label htmlFor="sequence" className='block text-lg pb-2 font-mono'>Enter the Amino Acid sequence</label>
-                <input
-                  type="text"
-                  placeholder='Enter Sequence'
-                  name="sequence"
-                  value={formik.values.sequence}
-                  onChange={formik.handleChange}
-                  className='border-2 border-gray-500 p-2 rounded-md w-3/4 outline-none focus:border-teal-500'
-                />
+                  <input
+                    type="text"
+                    placeholder='Enter Sequence'
+                    name="sequence"
+                    id="sequence"
+                    value={formik.values.sequence}
+                    // onChange={formik.handleChange}
+                    onChange={onChange}
+                    className='border-2 border-gray-500 p-2 rounded-md w-3/4 outline-none focus:border-teal-500'
+                  />
+                  <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
+                      <div className="modal">
+                        <button className="close" onClick={closeModal}>
+                          &times;
+                        </button>
+                        <div className="header"> Warning!! </div>
+                        <div className="content">
+                          {' '}
+                          Capital alphabets signify natural Amino Acids. Entering small-case alphabets will be considered
+                          as unnatural amino acid and you will have to enter its hydrophobic value in next page.
+                        <br />
+                        <br />
+                          Close this pop-up to continue.
+                        </div>
+                        <div className='flex justify-center'>
+                          <button className='border-2 border-gray-500 p-2 rounded-md outline-none hover:bg-teal-400' onClick={closeModal}>Close</button>
+                        </div>
+                      </div>
+                  </Popup>    
               </div>
 
               {/*div for scale */}
@@ -89,18 +129,19 @@ function App() {
 
               {/*div for type */}
               <div className='pb-4 text-lg'>
-                <label htmlFor="type" className='block text-lg pb-2 font-mono'>Enter type of amino acid chain:</label>
+                <label htmlFor="type" className='block text-lg pb-2 font-mono'>Enter type of amino-acid chain:</label>
                 <div>
                   <select
                     name="type"
                     id="type"
                     value={formik.values.type}
                     onChange={formik.handleChange}
-                    className='border-2 border-gray-500 p-2 rounded-md w-fit outline-none focus:border-teal-500'
+                    className='border-2 border-gray-500 p-2 rounded-md w-1/4 outline-none focus:border-teal-500'
                   >
                     <option>alpha</option>
                     <option>beta</option>
-                    <option>3-10</option>
+                    <option>Polyproline-I</option>
+                    <option>Polyproline-II</option>
                   </select>
                 </div>
               </div>   

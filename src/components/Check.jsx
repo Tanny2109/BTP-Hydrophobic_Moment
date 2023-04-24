@@ -13,7 +13,6 @@ function Check() {
     let sequence = location.state.sequence;
     let scale = location.state.scale;
     let type = location.state.type;
-    sequence = sequence.toUpperCase();
     // console.log(F)
     // console.log([sequence, scale, type]);
 

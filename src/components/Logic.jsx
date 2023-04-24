@@ -17,7 +17,6 @@ function Calculate() {
 
     const location = useLocation();
     let sequence = location.state.sequence;
-    sequence = sequence.toUpperCase();
     let scale = location.state.scale;
     let values = location.state.values;
     let type = location.state.type;
@@ -29,10 +28,11 @@ function Calculate() {
             let c = s;
             let val = values[c];
 
-            if (val) {
-                // hv[c] = val;
-                hv.push(val);
-            }
+            // if (val!=NaN) {
+            //     // hv[c] = val;
+            //     hv.push(val);
+            // }
+            hv.push(val);
         }
     }
     
@@ -40,7 +40,9 @@ function Calculate() {
     {
         let sum_sin = 0.0, sum_cos = 0.0;
         let k = sequence.split("");
-        // console.log('k: ',k);
+        // console.log('k: ', k);
+        // console.log("li: ", li);
+        console.log('angle: ', angle);
 
         for (let i = 0; i < k.length; i++) {
             let rad = ((i + 1) * angle * 3.14) / 180.0;
@@ -70,7 +72,11 @@ function Calculate() {
                 angle = 180;
                 // setAngle(180);
                 break;
-            case '3-10':
+            case 'Polyproline-I':
+                angle = 360/(3.3);
+                // setAngle(120);
+                break;
+            case 'Polyproline-II':
                 angle = 120;
                 // setAngle(120);
                 break;

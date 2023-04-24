@@ -9,6 +9,7 @@ import App from './components/App';
 import Logic from './components/Logic';
 import Inputs from './components/Inputs';
 import Check from './components/Check';
+// import Home from './components/Home';
 
 const router = createBrowserRouter([
   {
