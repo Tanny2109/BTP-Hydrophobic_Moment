@@ -115,6 +115,7 @@ function Calculate() {
                     <div className='flex-1 p-2'>
                         <div className='mt-6 text-center'>
                             <p className='block text-lg pb-2 font-mono'>Entered Sequence is: {sequence}</p>
+                            <p className='block text-lg pb-2 font-mono'>Secondary structure chosen: {type}</p>
                             <p className='block text-lg pb-2 font-mono'>Entered scale is: {scale}</p>
                             <p className='block text-lg pb-2 font-mono'>Mean Hydrophobicity is: {mean_hydrophobicity}</p>
                             <p className='block text-lg pb-2 font-mono'>Hydrophobic Moment is: {moment}</p>
